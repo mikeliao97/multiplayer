@@ -81,10 +81,15 @@ Player.onConnect = (socket) => {
     if (data.inputId === 'left') {
       player.pressingLeft = data.state
     }
-    // player.pressingLeft = data.state && data.inputId === 'left'
-    player.pressingRight = data.state && data.inputId === 'right'
-    player.pressingUp = data.state && data.inputId === 'up'
-    player.pressingDown = data.state && data.inputId === 'down'
+    if (data.inputId === 'right') {
+      player.pressingRight = data.state
+    }
+    if (data.inputId === 'up') {
+      player.pressingUp = data.state
+    }
+    if (data.inputId === 'down') {
+      player.pressingDown = data.state
+    }
   })
 }
 
@@ -114,8 +119,10 @@ const Bullet = (angle) => {
   self.spdY = Math.sin(angle / 180 * Math.PI) * 10
 
   self.timer = 0
+
   self.toRemove = false
   const superUpdate = self.update
+
   self.update = () => {
     if (self.timer++ > 100) {
       self.toRemove = true
